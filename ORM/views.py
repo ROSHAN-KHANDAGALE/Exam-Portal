@@ -179,4 +179,7 @@ class Logout(View):
 class Home(View):
     @method_decorator(login_required)
     def get(self, request):
+        if request.user.is_superuser:
+            return render(request, "admin_dashboard.html")
+
         return render(request, "home.html")
