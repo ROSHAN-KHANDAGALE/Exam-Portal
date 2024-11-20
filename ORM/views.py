@@ -4,7 +4,7 @@ from django.views import View
 
 # For Model
 from django.contrib.auth.models import User
-from .models import ResetID
+from .models import *
 
 # For Authentication, Message
 from django.contrib.auth import authenticate, login, logout
@@ -20,6 +20,9 @@ from django.core.mail import send_mail
 # For UUID, Date & Time
 import uuid, datetime, random
 from pytz import timezone
+
+# For Forms
+from .forms import *
 
 
 # Create your views here.
@@ -183,3 +186,30 @@ class Home(View):
             return render(request, "admin_dashboard.html")
 
         return render(request, "home.html")
+
+
+class StudentRegister(View):
+    @method_decorator(login_required)
+    def get(self, request):
+        return render(request, "studentRegister.html")
+
+    def post(self, request):
+        pass
+
+
+class Exam(View):
+    def get(self, request):
+        form = ExamForm()
+        # exams = Exam.o()
+        return render(request, "examForm.html", {"form": form})
+
+    def post(self, request):
+        form = ExamForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Exam created successfully!")
+            return redirect("examForm/")
+        else:
+            messages.error(request, "There was an error in the form.")
+        exams = Exam.objects.all()
+        return render(request, "examForm.html", {"form": form, "exams": exams})

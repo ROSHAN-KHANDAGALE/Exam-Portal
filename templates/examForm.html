@@ -1,0 +1,37 @@
+{% extends "adminBase.html" %} {% block title %}
+<title>Create Exam</title>
+{% endblock title %} {% block content %}
+<div class="main-content">
+  <h2 class="text-center mt-4">Create Exam</h2>
+  <form method="post" class="mt-4">
+    {% csrf_token %} {{ form.as_p }}
+    <button type="submit" class="btn btn-success w-100">Create Exam</button>
+  </form>
+
+  <h3 class="mt-5">Exams List</h3>
+  <table class="table table-bordered mt-3">
+    <thead>
+      <tr>
+        <th>Exam Title</th>
+        <th>Subject</th>
+        <th>Exam Type</th>
+        <th>Date</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for exam in exams %}
+      <tr>
+        <td>{{ exam.name }}</td>
+        <td>{{ exam.subject.name }}</td>
+        <td>{{ exam.get_exam_type_display }}</td>
+        <td>{{ exam.date }}</td>
+        <td>{{ exam.start_time }}</td>
+        <td>{{ exam.end_time }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

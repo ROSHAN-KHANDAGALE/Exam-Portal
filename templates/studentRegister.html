@@ -1,0 +1,78 @@
+{% extends "adminBase.html" %}
+{% block title %}
+<title> Student Registeration</title>
+{% endblock title %}
+
+{% block content %}
+    <!-- Main Content -->
+    <div class="main-content">
+      <h2 class="text-center mt-4">Student Registration</h2>
+      <form action="{% url 'studentRegister' %}" method="post" class="mt-4">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="first_name" class="form-label">First Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="first_name"
+            name="first_name"
+            maxlength="50"
+            placeholder="Enter your first name"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="last_name" class="form-label">Last Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="last_name"
+            name="last_name"
+            maxlength="50"
+            placeholder="Enter your last name"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            maxlength="100"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="phone_no" class="form-label">Phone Number</label>
+          <input
+            type="tel"
+            class="form-control"
+            id="phone_no"
+            name="phone_no"
+            maxlength="15"
+            placeholder="Enter your phone number"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="enrollment_no" class="form-label"
+            >Enrollment Number</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="enrollment_no"
+            name="enrollment_no"
+            maxlength="20"
+            placeholder="Enter your enrollment number"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Register</button>
+      </form>
+    </div>
+
+{% endblock content %}
