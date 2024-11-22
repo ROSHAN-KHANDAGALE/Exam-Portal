@@ -1,33 +1,47 @@
-{% extends "adminBase.html" %}
-
-{% block title %}
+{% extends "admin/adminBase.html" %} {% block title %}
 <title>Create Exam</title>
-{% endblock title %}
-
-{% block content %}
+{% endblock title %} {% block content %}
 <!-- Main Content -->
 <div class="main-content">
   <h2 class="text-center mt-4">Create Exam</h2>
 
   <!-- Button to trigger modal (right-aligned with plus icon) -->
-  <button type="button" class="btn btn-success position-fixed top-15 end-0 m-4" data-bs-toggle="modal" data-bs-target="#createExamModal">
+  <button
+    type="button"
+    class="btn btn-success position-fixed top-15 end-0 m-4"
+    data-bs-toggle="modal"
+    data-bs-target="#createExamModal"
+  >
     <i class="bi bi-plus-circle"></i> Create Exam
   </button>
 
   <!-- Modal Structure -->
-  <div class="modal fade" id="createExamModal" tabindex="-1" aria-labelledby="createExamModalLabel" aria-hidden="true">
+  <div
+    class="modal fade"
+    id="createExamModal"
+    tabindex="-1"
+    aria-labelledby="createExamModalLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="createExamModalLabel">Create Exam</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="modal-body">
           <!-- Exam Creation Form inside Modal -->
           <form method="post" class="mt-4">
             {% csrf_token %}
             <div class="mb-3">{{ form.as_p }}</div>
-            <button type="submit" class="btn btn-primary w-100">Create Exam</button>
+            <button type="submit" class="btn btn-primary w-100">
+              Create Exam
+            </button>
           </form>
         </div>
       </div>
@@ -61,4 +75,5 @@
     </tbody>
   </table>
 </div>
+
 {% endblock content %}

@@ -10,6 +10,9 @@ class ResetID(models.Model):
     expiry = models.DateTimeField()
     is_expired = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f"{self.UUID} {self.reset_entry} {self.user} {self.expiry} {self.is_expired} "
+
 
 # Student registration
 class Student(models.Model):
@@ -81,7 +84,7 @@ class SubjectTeacher(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.subject.name} taught by {self.teacher.first_name} {self.teacher.last_name}"
+        return f"{self.subject.name} by Prof. {self.teacher.first_name} {self.teacher.last_name}"
 
 
 # Student enrollment in subjects

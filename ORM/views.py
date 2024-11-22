@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 from django.views import View
 from django.views.generic import ListView, CreateView
+from django.urls import reverse_lazy
 
 # For Model
 from django.contrib.auth.models import User
@@ -179,11 +180,12 @@ class Logout(View):
 
 # For Home
 class Home(View):
+    @method_decorator(login_required)
     def get(self, request):
         if request.user.is_superuser:
-            return render(request, "admin_dashboard.html")
+            return render(request, "admin/admin_dashboard.html")
 
-        return render(request, "home.html")
+        return render(request, "user/home.html")
 
 
 # For Student Registeration
@@ -193,7 +195,7 @@ class StudentRegister(View):
         registered_data = Student.objects.all()
         return render(
             request,
-            "studentRegister.html",
+            "admin/studentRegister.html",
             {"form": form, "registered_data": registered_data},
         )
 
@@ -208,34 +210,54 @@ class StudentRegister(View):
             return redirect("studentRegister")
 
 
+# Random Subject Code Generator
+subj_code = random.randint(0, 9999)
+
+
+# For Teacher
+class TeacherListView(ListView):
+    pass
+
+
 # For Subject
 class SubjectListView(ListView):
     model = Subject
-    template_name = "subject.html"
+    form_class = SubjectForm
+    template_name = "admin/subject.html"
     paginate_by = 5
     context_object_name = "subjects"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = self.form_class()
+        return context
 
+
+# For Subject Post/ Create View
 class SubjectCreateView(CreateView):
     model = Subject
-    form_class = SubjectForm
-    template_name = "subject.html"
+    initial = {"code": subj_code}
+    fields = ["name", "credit_hours"]
+    template_name = "admin/subject.html"
     success_url = "/subject/"
 
 
 # For Exam
-class Exam(View):
-    def get(self, request):
-        form = ExamForm()
-        return render(request, "examForm.html", {"form": form})
+class ExamListView(ListView):
+    model = Exam
+    form_class = ExamForm
+    template_name = "admin/examForm.html"
+    paginate_by = 5
+    context_object_name = "exams"
 
-    def post(self, request):
-        form = ExamForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Exam created successfully!")
-            return redirect("examForm/")
-        else:
-            messages.error(request, "There was an error in the form.")
-        exams = Exam.objects.all()
-        return render(request, "examForm.html", {"form": form, "exams": exams})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = self.form_class()
+        return context
+
+
+class ExamCreateView(CreateView):
+    model = Exam
+    fields = "__all__"
+    template_name = "admin/examForm.html"
+    success_url = "/examForm/"
