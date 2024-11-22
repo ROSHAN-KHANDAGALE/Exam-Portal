@@ -1,9 +1,6 @@
-{% extends "adminBase.html" %} 
-{% block title %}
+{% extends "adminBase.html" %} {% block title %}
 <title>Admin Dashboard</title>
-{% endblock title %} 
-
-{% block content %}
+{% endblock title %} {% block content %}
 <!-- Main Content -->
 <div class="main-content">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -38,19 +35,19 @@
 
   <h1 class="mt-4">Admin Dashboard</h1>
   <p>
-    Manage subjects, teachers, students, exams, attendance, results, and more using the cards below.
+    Manage subjects, teachers, students, exams, attendance, results, and more
+    using the cards below.
   </p>
 
   <!-- Academic Management Section -->
   <div class="row">
-    
     <!-- Subject Card -->
     <div class="col-md-4">
       <div class="card text-white bg-primary mb-3">
         <div class="card-body">
           <h5 class="card-title">Subjects</h5>
           <p class="card-text">Total: 12</p>
-          <a href={% url 'subject' %} class="btn btn-light">Manage Subjects</a>
+          <a href="#" class="btn btn-light">Manage Subjects</a>
         </div>
       </div>
     </div>
@@ -72,23 +69,23 @@
         <div class="card-body">
           <h5 class="card-title">Exams</h5>
           <p class="card-text">Upcoming: 5</p>
-          <a href={% url 'examForm' %} class="btn btn-light">Manage Exams</a>
+          <a href="#" class="btn btn-light">Manage Exams</a>
         </div>
       </div>
     </div>
-
   </div>
 
   <!-- Student Management Section -->
   <div class="row">
-    
     <!-- Subject Teacher Card -->
     <div class="col-md-4">
       <div class="card text-white bg-warning mb-3">
         <div class="card-body">
           <h5 class="card-title">Subject Teachers</h5>
           <p class="card-text">Assignments: 8</p>
-          <a href="#" class="btn btn-light">Manage Subject-Teacher Assignments</a>
+          <a href="#" class="btn btn-light"
+            >Manage Subject-Teacher Assignments</a
+          >
         </div>
       </div>
     </div>
@@ -99,7 +96,7 @@
         <div class="card-body">
           <h5 class="card-title">Students</h5>
           <p class="card-text">Total: 500</p>
-          <a href={% url 'studentRegister' %} class="btn btn-light">Manage Students</a>
+          <a href="#" class="btn btn-light">Manage Students</a>
         </div>
       </div>
     </div>
@@ -114,12 +111,10 @@
         </div>
       </div>
     </div>
-
   </div>
 
   <!-- Results & Attendance Section -->
   <div class="row">
-
     <!-- Attendance Card -->
     <div class="col-md-4">
       <div class="card text-white bg-dark mb-3">
@@ -141,8 +136,6 @@
         </div>
       </div>
     </div>
-
   </div>
-
 </div>
 {% endblock content %}
