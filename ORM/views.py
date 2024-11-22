@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from django.conf import settings
 from django.views import View
+from django.views.generic import ListView, CreateView
 
 # For Model
 from django.contrib.auth.models import User
-from .models import ResetID
+from .models import *
+from .forms import *
 
 # For Authentication, Message
 from django.contrib.auth import authenticate, login, logout
@@ -177,9 +179,63 @@ class Logout(View):
 
 # For Home
 class Home(View):
-    @method_decorator(login_required)
     def get(self, request):
         if request.user.is_superuser:
             return render(request, "admin_dashboard.html")
 
         return render(request, "home.html")
+
+
+# For Student Registeration
+class StudentRegister(View):
+    def get(self, request):
+        form = StudentForm()
+        registered_data = Student.objects.all()
+        return render(
+            request,
+            "studentRegister.html",
+            {"form": form, "registered_data": registered_data},
+        )
+
+    def post(self, request):
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Student Registered!!!")
+            return redirect("studentRegister")
+        else:
+            messages.error(request, "Registration Failed!!")
+            return redirect("studentRegister")
+
+
+# For Subject
+class SubjectListView(ListView):
+    model = Subject
+    template_name = "subject.html"
+    paginate_by = 5
+    context_object_name = "subjects"
+
+
+class SubjectCreateView(CreateView):
+    model = Subject
+    form_class = SubjectForm
+    template_name = "subject.html"
+    success_url = "/subject/"
+
+
+# For Exam
+class Exam(View):
+    def get(self, request):
+        form = ExamForm()
+        return render(request, "examForm.html", {"form": form})
+
+    def post(self, request):
+        form = ExamForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Exam created successfully!")
+            return redirect("examForm/")
+        else:
+            messages.error(request, "There was an error in the form.")
+        exams = Exam.objects.all()
+        return render(request, "examForm.html", {"form": form, "exams": exams})

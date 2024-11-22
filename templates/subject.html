@@ -1,0 +1,76 @@
+{% extends "adminBase.html" %}
+
+{% block title %}
+<title>Create Subject</title>
+{% endblock title %}
+
+{% block content %}
+<div class="main-content">
+  <h2 class="text-center mt-4">Create Subject</h2>
+
+  <!-- Button to trigger modal -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createSubjectModal">
+    Create New Subject
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="createSubjectModal" tabindex="-1" aria-labelledby="createSubjectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createSubjectModalLabel">Create Subject</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Form inside the modal -->
+          <form method="post" action="{% url 'subject_post' %}" id="createSubjectForm" class="mt-4">
+            {% csrf_token %}
+            {{ form.as_p }}  <!-- Render the form fields properly -->
+            <button type="submit" class="btn btn-success w-100">Create Subject</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Subject List -->
+  <h3 class="mt-5">Subject List</h3>
+  <table class="table table-bordered mt-3">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Code</th>
+        <th>Credit Hours</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for subject in subjects %}
+      <tr>
+        <td>{{ subject.name }}</td>
+        <td>{{ subject.code }}</td>
+        <td>{{ subject.credit_hours }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <span class="step-links">
+      {% if subjects.has_previous %}
+      <a href="?page=1">&laquo; first</a>
+      <a href="?page={{ subjects.previous_page_number }}">previous</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{ subjects.number }} of {{ subjects.paginator.num_pages }}.
+      </span>
+
+      {% if subjects.has_next %}
+      <a href="?page={{ subjects.next_page_number }}">next</a>
+      <a href="?page={{ subjects.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+    </span>
+  </div>
+</div>
+{% endblock content %}

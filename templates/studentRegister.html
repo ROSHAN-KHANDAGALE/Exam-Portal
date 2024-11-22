@@ -1,0 +1,75 @@
+{% extends "adminBase.html" %} {% block title %}
+<title>Student Registration</title>
+{% endblock title %} {% block content %}
+<!-- Main Content -->
+<div class="main-content">
+  <h2 class="text-center mt-4">Student Registration</h2>
+
+  <button
+    type="button"
+    class="btn btn-success position-fixed top-25 end-0 m-4"
+    data-bs-toggle="modal"
+    data-bs-target="#studentRegisterModal"
+  >
+    <i class="bi bi-plus-circle"></i> Register
+  </button>
+
+  <!-- Modal Structure -->
+  <div
+    class="modal fade"
+    id="studentRegisterModal"
+    tabindex="-1"
+    aria-labelledby="studentRegisterModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="studentRegisterModalLabel">
+            Student Registration
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'studentRegister' %}" method="post" class="mt-4">
+            {% csrf_token %}
+            <div class="mb-3">{{ form.as_p }}</div>
+            <button type="submit" class="btn btn-primary w-100">
+              Register
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Registered Students Table -->
+  <h3 class="mt-5 text-center">Registered Students</h3>
+  <table class="table table-bordered mt-4 table-dark">
+    <thead>
+      <tr>
+        <th>Student Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Enrollment Number</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for std in registered_data %}
+      <tr>
+        <td>{{ std.first_name }} {{ std.last_name }}</td>
+        <td>{{ std.email }}</td>
+        <td>{{ std.phone_no }}</td>
+        <td>{{ std.enrollment_no }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock content %}

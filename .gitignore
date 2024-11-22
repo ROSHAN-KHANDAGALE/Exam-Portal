@@ -169,3 +169,4 @@ asgi.py
 wsgi.py
 static/
 manage.py
+settings.py
