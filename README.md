@@ -37,6 +37,11 @@ This project is a Django-based authentication system that provides essential fea
 - Displays form validation errors and success messages using Django's `messages` framework.
 - User-friendly error handling for invalid credentials and expired links.
 
+### 7. **Admin Panel and Management**
+
+- The Admin Manages the Entire CRUD for Exam Portal enabling them to `edit` `modify` `delete` or `view` the records of the exam system.
+- An user friendly Admin UI is provided inorder to manage the task easily.
+
 ---
 
 ## Installation
@@ -95,6 +100,8 @@ This project is a Django-based authentication system that provides essential fea
 - Forgot Password Page: Available at /forgot/.
 - Reset Password Page: Dynamic URL based on - reset UUID (e.g., /reset/<uuid>/).
 - Home Page: Accessible after login at /home/.
+  - Admin Home - Enables the admin to manage entire operations for exam.(based on super user).
+  - User Home - Enables the student to view their `scores` `records` and `schedules`.
 
 ## Environment Variables
 
@@ -114,6 +121,7 @@ SITE_URL=http://127.0.0.1:8000
 ```
 project/
 ├── templates/               # HTML Templates
+|   |── admin
 │   ├── index.html           # Login Page
 │   ├── signup.html          # Registration Page
 │   ├── forgot.html          # Forgot Password Page

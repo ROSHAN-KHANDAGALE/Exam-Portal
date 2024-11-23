@@ -9,7 +9,9 @@ class StudentForm(forms.ModelForm):
         model = Student
         fields = "__all__"
         widgets = {
-            "email": forms.EmailInput(attrs={"type": "email"}),
+            "email": forms.EmailInput(
+                attrs={"type": "email", "class": "form-control email-field"}
+            )
         }
 
 
@@ -27,7 +29,19 @@ class TeacherForm(forms.ModelForm):
 class SubjectForm(forms.ModelForm):
     class Meta:
         model = Subject
-        fields = "__all__"
+        fields = ["name", "credit_hours"]
+        widgets = {
+            "name": forms.TextInput(
+                attrs={"type": "text", "class": "form-control name-field"}
+            ),
+            "credit_hours": forms.TextInput(
+                attrs={
+                    "type": "number",
+                    "min": "0",
+                    "class": "form-control credit-hours-field",
+                }
+            ),
+        }
 
 
 # For Exam Form
