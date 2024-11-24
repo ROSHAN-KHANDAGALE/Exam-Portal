@@ -16,4 +16,6 @@ urlpatterns = [
     path("examForm/create", views.ExamCreateView.as_view(), name="examForm_post"),
     path("subject/", views.SubjectListView.as_view(), name="subject"),
     path("subject/create", views.SubjectCreateView.as_view(), name="subject_post"),
+    path("teacher/", views.TeacherListView.as_view(), name="teacher"),
+    path("teacher/post", views.TeacherCreateView.as_view(), name="teacher_post"),
 ]

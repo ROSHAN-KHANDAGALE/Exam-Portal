@@ -184,8 +184,8 @@ class Home(View):
     def get(self, request):
         if request.user.is_superuser:
             return render(request, "admin/admin_dashboard.html")
-
-        return render(request, "user/home.html")
+        else:
+            return render(request, "user/home.html")
 
 
 # For Student Registeration
@@ -210,13 +210,18 @@ class StudentRegister(View):
             return redirect("studentRegister")
 
 
-# Random Subject Code Generator
-subj_code = random.randint(0, 9999)
-
-
 # For Teacher
 class TeacherListView(ListView):
-    pass
+    model = Teacher
+    form_class = TeacherForm
+    template_name = "admin/teacher.html"
+    paginate_by = 5
+    context_object_name = "teachers"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = self.form_class()
+        return context
 
 
 # For Subject
@@ -233,10 +238,22 @@ class SubjectListView(ListView):
         return context
 
 
+# For Teacher Post/Create View
+class TeacherCreateView(CreateView):
+    model = Teacher
+    fields = "__all__"
+    template_name = "admin/teacher.html"
+
+    # Custom Redirect
+    def form_valid(self, form):
+        self.object = form.save()
+        return redirect("teacher")
+
+
 # For Subject Post/ Create View
 class SubjectCreateView(CreateView):
     model = Subject
-    initial = {"code": subj_code}
+    # initial = {"code": subj_code}
     fields = ["name", "credit_hours"]
     template_name = "admin/subject.html"
     success_url = "/subject/"
@@ -261,3 +278,6 @@ class ExamCreateView(CreateView):
     fields = "__all__"
     template_name = "admin/examForm.html"
     success_url = "/examForm/"
+
+
+# class

@@ -1,9 +1,9 @@
 {% extends "admin/adminBase.html" %} {% block title %}
-<title>Create Exam</title>
+<title>Create Teacher</title>
 {% endblock title %} {% block content %}
 <!-- Main Content -->
 <div class="main-content">
-  <h2 class="text-center mt-4">Create Exam</h2>
+  <h2 class="text-center mt-4">Create Teacher</h2>
 
   <!-- Button to trigger modal (right-aligned with plus icon) -->
   <button
@@ -12,7 +12,7 @@
     data-bs-toggle="modal"
     data-bs-target="#createExamModal"
   >
-    <i class="bi bi-plus-circle"></i> Create Exam
+    <i class="bi bi-plus-circle"></i> Create Teacher
   </button>
 
   <!-- Modal Structure -->
@@ -26,7 +26,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="createExamModalLabel">Create Exam</h5>
+          <h5 class="modal-title" id="createExamModalLabel">Create Teacher</h5>
           <button
             type="button"
             class="btn-close"
@@ -36,7 +36,7 @@
         </div>
         <div class="modal-body">
           <!-- Exam Creation Form inside Modal -->
-          <form method="post" class="mt-4">
+          <form method="post" action={% url 'teacher_post' %} class="mt-4">
             {% csrf_token %}
             <div class="mb-3">{{ form.as_p }}</div>
             <button type="submit" class="btn btn-primary w-100">
@@ -49,27 +49,23 @@
   </div>
 
   <!-- Exams List -->
-  <h3 class="mt-5">Exams List</h3>
+  <h3 class="mt-5">Teachers List</h3>
   <table class="table table-bordered mt-3">
     <thead>
       <tr>
-        <th>Exam Title</th>
-        <th>Subject</th>
-        <th>Exam Type</th>
-        <th>Date</th>
-        <th>Start Time</th>
-        <th>End Time</th>
+        <th>Teacher Name</th>
+        <th>Email</th>
+        <th>Contact Details</th>
+        <th>Specialization</th>
       </tr>
     </thead>
     <tbody>
-      {% for exam in exams %}
+      {% for get in teachers %}
       <tr>
-        <td>{{ exam.name }}</td>
-        <td>{{ exam.subject.name }}</td>
-        <td>{{ exam.get_exam_type_display }}</td>
-        <td>{{ exam.date }}</td>
-        <td>{{ exam.start_time }}</td>
-        <td>{{ exam.end_time }}</td>
+        <td>{{ get.first_name }} {{ get.last_name }}</td>
+        <td>{{ get.email }}</td>
+        <td>{{ get.phone_no }}</td>
+        <td>{{ get.specialization }}</td>
       </tr>
       {% endfor %}
     </tbody>

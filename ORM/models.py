@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import random
 
 
 # Create your models here.
@@ -26,10 +27,15 @@ class Student(models.Model):
         return f"{self.first_name} {self.last_name} ({self.enrollment_no})"
 
 
+# Random Subject Code generator
+def generate_code():
+    return f"{random.randint(0, 9999):04}"
+
+
 # Subjects
 class Subject(models.Model):
     name = models.CharField(max_length=100)
-    code = models.CharField(max_length=10, unique=True)
+    code = models.CharField(max_length=4, unique=True, default=generate_code)
     credit_hours = models.PositiveIntegerField()
 
     def __str__(self):
