@@ -45,7 +45,7 @@
   <div class="row">
     <!-- Subject Card -->
     <div class="col-md-4">
-      <div class="card text-white bg-primary mb-3" style="background-image: url('https://img.freepik.com/free-vector/online-education-concept_1284-4474.jpg?t=st=1732469560~exp=1732473160~hmac=2331503d74dc29af2f3a573767748e7e1b82f8eca10af9174a6e08c43294c0ae&w=740');  background-color: #cccccc; background-size: cover; background-position: center; background-repeat: no-repeat;">
+      <div class="card text-white bg-primary mb-3" style="background-image: url('https://images.unsplash.com/photo-1517673132405-a56a62b18caf?q=80&w=1476&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');  background-color: #cccccc; background-size: cover; background-position: center; background-repeat: no-repeat;">
         <div class="card-body">
           <h5 class="card-title">Subjects</h5>
           <p class="card-text">Total: {% count_records 'Subject' %}</p>
@@ -56,7 +56,7 @@
 
     <!-- Teacher Card -->
     <div class="col-md-4">
-      <div class="card text-white bg-success mb-3" style="background-image: url('https://images.pexels.com/photos/5428267/pexels-photo-5428267.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');  background-color: #cccccc; background-size: cover; background-position: center; background-repeat: no-repeat;" >
+      <div class="card text-white bg-success mb-3" style="background-image: url('https://plus.unsplash.com/premium_photo-1683134169138-9037062cba51?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');  background-color: #cccccc; background-size: cover; background-position: center; background-repeat: no-repeat;" >
         <div class="card-body">
           <h5 class="card-title">Teachers</h5>
           <p class="card-text">Total: {% count_records 'Teacher' %}</p>
@@ -81,11 +81,11 @@
   <div class="row">
     <!-- Subject Teacher Card -->
     <div class="col-md-4">
-      <div class="card text-white bg-warning mb-3" style="background-image: url('https://media.istockphoto.com/id/1148232113/photo/group-of-students-studying-book-at-classroom.jpg?s=2048x2048&w=is&k=20&c=8pp1ddZ7nuHQePIJ3E9O1koTgmc9S1albnHJNZvi0ZY=');  background-color: #cccccc; background-size: cover; background-position: center; background-repeat: no-repeat;" >
+      <div class="card text-white bg-warning mb-3" style="background-image: url('');  background-color: #cccccc; background-size: cover; background-position: center; background-repeat: no-repeat;" >
         <div class="card-body">
           <h5 class="card-title">Subject Teachers</h5>
           <p class="card-text">Assignments: {% count_records 'SubjectTeacher' %}</p>
-          <a href='#' class="btn btn-light"
+          <a href={% url 'subjectTeacher' %} class="btn btn-light"
             >Manage Subject-Teacher Assignments</a
           >
         </div>
@@ -94,18 +94,18 @@
 
     <!-- Student Card -->
     <div class="col-md-4">
-      <div class="card text-white bg-info mb-3" style="background-image: url('https://images.pexels.com/photos/5212663/pexels-photo-5212663.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');  background-color: #cccccc; background-size: cover; background-position: center; background-repeat: no-repeat;">
+      <div class="card text-white bg-info mb-3" style="background-image: url('https://media.istockphoto.com/id/1148232113/photo/group-of-students-studying-book-at-classroom.jpg?s=2048x2048&w=is&k=20&c=8pp1ddZ7nuHQePIJ3E9O1koTgmc9S1albnHJNZvi0ZY=');  background-color: #cccccc; background-size: cover; background-position: center; background-repeat: no-repeat;">
         <div class="card-body">
           <h5 class="card-title">Students</h5>
           <p class="card-text">Total: {% count_records 'Student' %}</p>
-          <a href="#" class="btn btn-light">Manage Students</a>
+          <a href={% url 'studentRegister' %} class="btn btn-light">Manage Students</a>
         </div>
       </div>
     </div>
 
     <!-- Enrollment Card -->
     <div class="col-md-4">
-      <div class="card text-white bg-secondary mb-3" style="background-image: url('https://media.istockphoto.com/id/1148232113/photo/group-of-students-studying-book-at-classroom.jpg?s=2048x2048&w=is&k=20&c=8pp1ddZ7nuHQePIJ3E9O1koTgmc9S1albnHJNZvi0ZY=');  background-color: #cccccc; background-size: cover; background-position: center; background-repeat: no-repeat;" >
+      <div class="card text-white bg-secondary mb-3" style="background-image: url('');  background-color: #cccccc; background-size: cover; background-position: center; background-repeat: no-repeat;" >
         <div class="card-body">
           <h5 class="card-title">Enrollments</h5>
           <p class="card-text">Total Enrollments: {% count_records 'Enrollment' %}</p>
@@ -119,7 +119,7 @@
   <div class="row">
     <!-- Attendance Card -->
     <div class="col-md-4">
-      <div class="card text-white bg-dark mb-3" style="background-image: url('https://media.istockphoto.com/id/1148232113/photo/group-of-students-studying-book-at-classroom.jpg?s=2048x2048&w=is&k=20&c=8pp1ddZ7nuHQePIJ3E9O1koTgmc9S1albnHJNZvi0ZY=');  background-color: #cccccc; background-size: cover; background-position: center; background-repeat: no-repeat;" >
+      <div class="card text-white bg-dark mb-3" style="background-image: url('https://media.istockphoto.com/id/1132979604/photo/finger-print-scan-security-system-on-wall-in-a-office-building.jpg?s=1024x1024&w=is&k=20&c=PpN1rd-ELSxgt1jVcQWoHR_BV3_YMdw20REIitwk7_w=');  background-color: #cccccc; background-size: cover; background-position: center; background-repeat: no-repeat;" >
         <div class="card-body">
           <h5 class="card-title">Attendance</h5>
           <p class="card-text">Pending: {% count_records 'Attendance' %}</p>
@@ -130,7 +130,7 @@
 
     <!-- Result Card -->
     <div class="col-md-4">
-      <div class="card text-white bg-dark mb-3" style="background-image: url('https://media.istockphoto.com/id/1148232113/photo/group-of-students-studying-book-at-classroom.jpg?s=2048x2048&w=is&k=20&c=8pp1ddZ7nuHQePIJ3E9O1koTgmc9S1albnHJNZvi0ZY=');  background-color: #cccccc; background-size: cover; background-position: center; background-repeat: no-repeat;" >
+      <div class="card text-white bg-dark mb-3" style="background-image: url('https://media.istockphoto.com/id/1947499362/photo/happy-group-of-business-people-discussing-strategy-during-team-meeting-at-the-office-desk.jpg?s=1024x1024&w=is&k=20&c=A-5krxl1PTsv6HLO5uoslQQ_BrMkNoLE9t84nKMDzZA=');  background-color: #cccccc; background-size: cover; background-position: center; background-repeat: no-repeat;" >
         <div class="card-body">
           <h5 class="card-title">Results</h5>
           <p class="card-text">Pending: {% count_records 'Result' %}</p>

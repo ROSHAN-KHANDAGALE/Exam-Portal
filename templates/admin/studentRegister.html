@@ -11,7 +11,8 @@
     data-bs-toggle="modal"
     data-bs-target="#studentRegisterModal"
   >
-    <i class="bi bi-plus-circle"></i> Register
+    <i class="bi bi-plus-circle"></i>
+    {% if form.instance.id %} Update {% else %} Register Student {% endif %}
   </button>
 
   <!-- Modal Structure -->
@@ -35,12 +36,17 @@
             aria-label="Close"
           ></button>
         </div>
+
         <div class="modal-body">
-          <form action="{% url 'studentRegister' %}" method="post" class="mt-4">
+          <form
+            action="{% if form.instance.id %}{% url 'student_update' form.instance.id %}{% else %}{% url 'studentRegister' %}{% endif %}"
+            method="post"
+            class="mt-4"
+          >
             {% csrf_token %}
             <div class="mb-3">{{ form.as_p }}</div>
             <button type="submit" class="btn btn-primary w-100">
-              Register
+              {% if form.instance.id %}Update{% else %}Register{% endif %}
             </button>
           </form>
         </div>
@@ -57,6 +63,7 @@
         <th>Email</th>
         <th>Phone Number</th>
         <th>Enrollment Number</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -66,6 +73,14 @@
         <td>{{ std.email }}</td>
         <td>{{ std.phone_no }}</td>
         <td>{{ std.enrollment_no }}</td>
+        <td>
+          <a href="{% url 'student_update' std.id %}" class="btn btn-warning">
+            Update
+          </a>
+          <a href="{% url 'student_delete' std.id %}" class="btn btn-danger">
+            Delete
+          </a>
+        </td>
       </tr>
       {% endfor %}
     </tbody>

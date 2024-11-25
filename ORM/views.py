@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 from django.conf import settings
 from django.views import View
-from django.views.generic import ListView, CreateView
-from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 # For Model
 from django.contrib.auth.models import User
@@ -188,7 +187,14 @@ class Home(View):
             return render(request, "user/home.html")
 
 
-# For Student Registeration
+# For Settings
+class Settings(View):
+    def get(self, request):
+        return render(request, "admin/settings.html")
+
+
+# For Student Registeration (CRUD) (DONE)
+# For Read Student
 class StudentRegister(View):
     def get(self, request):
         form = StudentForm()
@@ -210,27 +216,44 @@ class StudentRegister(View):
             return redirect("studentRegister")
 
 
-# For Teacher
+# For Updating Student
+class StudentUpdate(View):
+    def get(self, request, id):
+        fetch = Student.objects.get(id=id)
+        form = StudentForm(instance=fetch)
+        return render(
+            request,
+            "admin/studentRegister.html",
+            {"fetch": fetch, "form": form},
+        )
+
+    def post(self, request, id):
+        fetch = Student.objects.get(id=id)
+        form = StudentForm(request.POST, instance=fetch)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Student Updated Successfully!")
+            return redirect("studentRegister")
+        else:  #
+            messages.error(request, "Failed to Update the Student!")
+            return redirect("studentRegister")
+
+
+# For Delete Student
+class StudentDelete(View):
+    def get(self, request, id):
+        Student.objects.get(id=id).delete()
+        return redirect("studentRegister")
+
+
+# For Teacher (CR)
+# For View/ Read
 class TeacherListView(ListView):
     model = Teacher
     form_class = TeacherForm
     template_name = "admin/teacher.html"
     paginate_by = 5
     context_object_name = "teachers"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["form"] = self.form_class()
-        return context
-
-
-# For Subject
-class SubjectListView(ListView):
-    model = Subject
-    form_class = SubjectForm
-    template_name = "admin/subject.html"
-    paginate_by = 5
-    context_object_name = "subjects"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -250,16 +273,31 @@ class TeacherCreateView(CreateView):
         return redirect("teacher")
 
 
+# For Subject (CR)
+# For Subject View
+class SubjectListView(ListView):
+    model = Subject
+    form_class = SubjectForm
+    template_name = "admin/subject.html"
+    paginate_by = 2
+    context_object_name = "subjects"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = self.form_class()
+        return context
+
+
 # For Subject Post/ Create View
 class SubjectCreateView(CreateView):
     model = Subject
-    # initial = {"code": subj_code}
     fields = ["name", "credit_hours"]
     template_name = "admin/subject.html"
     success_url = "/subject/"
 
 
-# For Exam
+# For Exam (CR)
+# For Exam View
 class ExamListView(ListView):
     model = Exam
     form_class = ExamForm
@@ -273,6 +311,7 @@ class ExamListView(ListView):
         return context
 
 
+# For Exam Create
 class ExamCreateView(CreateView):
     model = Exam
     fields = "__all__"
@@ -280,4 +319,19 @@ class ExamCreateView(CreateView):
     success_url = "/examForm/"
 
 
-# class
+# For Subject Teacher (CR)
+# For Subject Teacher View
+class SubjectTeacherListView(ListView):
+    model = SubjectTeacher
+    form_class = SubjectTeacherForm
+    template_name = "SubjectTeacher.html"
+    paginate_by = 5
+    context_object_name = "subjectTeacher"
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context["form"] = self.form_class
+    #     return context
+
+
+# For Subject Teacher Create

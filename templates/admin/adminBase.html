@@ -55,32 +55,34 @@
       <hr />
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-          <a href={% url 'home' %} class="nav-link active" aria-current="page">
+          <a href="{% url 'home' %}" class="nav-link {% if request.path == '/home/' %}active{% endif %}" aria-current="page">
             <i class="bi bi-speedometer2"></i> Dashboard
           </a>
         </li>
-        <li>
-          <a href={% url 'studentRegister' %} class="nav-link">
+        {% comment %} <li>
+          <a href={% url 'studentRegister' %} class="nav-link {% if request.path == '/studentRegister/' %}active{% endif %}" id="studentsLink">
             <i class="bi bi-person"></i> Students
           </a>
-        </li>
-        <li>
-          <a href={% url 'examForm' %} class="nav-link">
+        </li> {% endcomment %}
+        {% comment %} <li>
+          <a href={% url 'examForm' %} class="nav-link {% if request.path == '/examForm/' %}active{% endif %}" id="examsLink">
             <i class="bi bi-file-earmark-text"></i> Exams
           </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link">
+        </li> {% endcomment %}
+        {% comment %} <li>
+          <a href="#" class="nav-link {% if request.path == '/results/' %}active{% endif %}" id="resultsLink">
             <i class="bi bi-card-checklist"></i> Results
           </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link">
+        </li> {% endcomment %}
+        {% comment %} <li>
+          <a href="#" class="nav-link {% if request.path == '/addQuestions/' %}active{% endif %}" id="addQuestionsLink">
             <i class="bi bi-file-earmark-plus"></i> Add Questions
           </a>
-        </li>
+        </li> {% endcomment %}
         <li>
-          <a href="#" class="nav-link"> <i class="bi bi-gear"></i> Settings </a>
+          <a href="{% url 'settings' %}" class="nav-link {% if request.path == '/settings/' %}active{% endif %}" id="settingsLink"> 
+            <i class="bi bi-gear"></i> Settings 
+          </a>
         </li>
       </ul>
       <hr />

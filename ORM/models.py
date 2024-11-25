@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-import random
+import random, datetime
 
 
 # Create your models here.
@@ -15,13 +15,24 @@ class ResetID(models.Model):
         return f"{self.UUID} {self.reset_entry} {self.user} {self.expiry} {self.is_expired} "
 
 
+# Enrollment generator
+def enrollment_generator():
+    current_year = datetime.datetime.now().year
+    number = random.randint(1000000, 9999999)
+
+    enrollment = f"{current_year}{number}"
+    return enrollment.zfill(11)
+
+
 # Student registration
 class Student(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField(max_length=100, unique=True)
     phone_no = models.CharField(max_length=15)
-    enrollment_no = models.CharField(max_length=20, unique=True)
+    enrollment_no = models.CharField(
+        max_length=20, unique=True, default=enrollment_generator
+    )
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} ({self.enrollment_no})"

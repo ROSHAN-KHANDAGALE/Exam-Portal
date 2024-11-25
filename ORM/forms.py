@@ -7,7 +7,7 @@ from .models import *
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields = "__all__"
+        fields = ["first_name", "last_name", "email", "phone_no"]
         widgets = {
             "email": forms.EmailInput(
                 attrs={"type": "email", "class": "form-control email-field"}
@@ -42,6 +42,13 @@ class SubjectForm(forms.ModelForm):
                 }
             ),
         }
+
+
+# For Subject Teacher
+class SubjectTeacherForm(forms.ModelForm):
+    class Meta:
+        model = SubjectTeacher
+        fields = "__all__"
 
 
 # For Exam Form
