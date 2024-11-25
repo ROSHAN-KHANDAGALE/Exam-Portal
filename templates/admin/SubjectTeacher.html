@@ -1,7 +1,88 @@
 {% extends "admin/adminBase.html" %} {% block title %}
-<title>Subject Incharge</title>
+<title>Incharge Registration</title>
 {% endblock title %} {% block content %}
+<!-- Main Content -->
 <div class="main-content">
-  <h2>Teacher Incharge</h2>
+  <h2 class="text-center mt-4">Subject Incharge Registration</h2>
+
+  <button
+    type="button"
+    class="btn btn-success position-fixed top-25 end-0 m-4"
+    data-bs-toggle="modal"
+    data-bs-target="#subjectInchargeRegistration"
+  >
+    <i class="bi bi-plus-circle"></i>
+    {% if form.instance.id %} Update Incharge {% else %} Register Incharge {% endif %}
+  </button>
+
+  <!-- Modal Structure -->
+  <div
+    class="modal fade"
+    id="subjectInchargeRegistration"
+    tabindex="-1"
+    aria-labelledby="subjectInchargeRegistrationrModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="subjectInchargeRegistrationrModalLabel">
+            Incharge Registration
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <form
+            action="{% if form.instance.id %}{% url 'student_update' form.instance.id %}{% else %}{% url 'studentRegister' %}{% endif %}"
+            method="post"
+            class="mt-4"
+          >
+            {% csrf_token %}
+            <div class="mb-3">{{ form.as_p }}</div>
+            <button type="submit" class="btn btn-primary w-100">
+              {% if form.instance.id %}Update{% else %}Register{% endif %}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Registered Incharges Table -->
+  <h3 class="mt-5 text-center">Registered Incharges</h3>
+  <table class="table table-bordered mt-4 table-dark">
+    <thead>
+      <tr>
+        <th>Sr. No</th>
+        <th>Subject</th>
+        <th>Incharge Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for sub in subjectTeacher %}
+      <tr>
+        <td>{{ sub.id }}</td>
+        <td>{{ sub.subject }}</td>
+        <td>{{ sub.teacher }}</td>
+        <td>
+          <a href="{% url 'student_update' sub.id %}" class="btn btn-warning">
+            Update
+          </a>
+          <a href="{% url 'student_delete' sub.id %}" class="btn btn-danger">
+            Delete
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
+
 {% endblock content %}

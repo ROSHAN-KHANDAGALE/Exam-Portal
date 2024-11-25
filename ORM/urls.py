@@ -22,6 +22,10 @@ urlpatterns = [
     path(
         "subjectTeacher/", views.SubjectTeacherListView.as_view(), name="subjectTeacher"
     ),
+    path(
+        "enrollment/", views.EnrollmentListView.as_view(), name="enrollment"
+    ),
+    
     # For Create
     path("examForm/create", views.ExamCreateView.as_view(), name="examForm_post"),
     path("subject/create", views.SubjectCreateView.as_view(), name="subject_post"),

@@ -86,7 +86,7 @@
           <h5 class="card-title">Subject Teachers</h5>
           <p class="card-text">Assignments: {% count_records 'SubjectTeacher' %}</p>
           <a href={% url 'subjectTeacher' %} class="btn btn-light"
-            >Manage Subject-Teacher Assignments</a
+            >Manage Subject-Teacher</a
           >
         </div>
       </div>
@@ -109,7 +109,7 @@
         <div class="card-body">
           <h5 class="card-title">Enrollments</h5>
           <p class="card-text">Total Enrollments: {% count_records 'Enrollment' %}</p>
-          <a href="#" class="btn btn-light">Manage Enrollments</a>
+          <a href={% url 'enrollment' %} class="btn btn-light">Manage Enrollments</a>
         </div>
       </div>
     </div>

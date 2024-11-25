@@ -61,3 +61,10 @@ class ExamForm(forms.ModelForm):
             "start_time": forms.TimeInput(attrs={"type": "time"}),
             "end_time": forms.TimeInput(attrs={"type": "time"}),
         }
+
+
+# For Enrollment Form
+class EnrollmentForm(forms.ModelForm):
+    class Meta:
+        model = Enrollment
+        fields = "__all__"

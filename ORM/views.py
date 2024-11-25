@@ -324,14 +324,29 @@ class ExamCreateView(CreateView):
 class SubjectTeacherListView(ListView):
     model = SubjectTeacher
     form_class = SubjectTeacherForm
-    template_name = "SubjectTeacher.html"
+    template_name = "admin/SubjectTeacher.html"
     paginate_by = 5
     context_object_name = "subjectTeacher"
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context["form"] = self.form_class
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = self.form_class
+        return context
 
 
 # For Subject Teacher Create
+
+
+# For Enrollment (CR)
+# For Enrollment View
+class EnrollmentListView(ListView):
+    model = Enrollment
+    form_class = EnrollmentForm
+    template_name = "admin/enrollment.html"
+    paginate_by = 5
+    context_object_name = "enrollment"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = self.form_class
+        return context
