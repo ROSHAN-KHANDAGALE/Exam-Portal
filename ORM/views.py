@@ -227,10 +227,11 @@ class StudentUpdate(View):
     def get(self, request, id):
         fetch = Student.objects.get(id=id)
         form = StudentForm(instance=fetch)
+        registered_data = Student.objects.all()
         return render(
             request,
             "admin/studentRegister.html",
-            {"fetch": fetch, "form": form},
+            {"fetch": fetch, "form": form, "registered_data": registered_data},
         )
 
     def post(self, request, id):
@@ -239,7 +240,12 @@ class StudentUpdate(View):
         if form.is_valid():
             form.save()
             messages.success(request, "Student Updated Successfully!")
-            return redirect("studentRegister")
+            registered_data = Student.objects.all()
+            return render(
+                request,
+                "admin/studentRegister.html",
+                {"form": form, "registered_data": registered_data},
+            )
         else:  #
             messages.error(request, "Failed to Update the Student!")
             return redirect("studentRegister")

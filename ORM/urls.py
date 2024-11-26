@@ -32,11 +32,11 @@ urlpatterns = [
     path("teacher/create", views.TeacherCreateView.as_view(), name="teacher_post"),
     # For Update
     path("profile/<int:pk>/update/", views.ProfileUpdateView.as_view(), name="profile_update"),
-    # path(
-    #     "student/update/<int:id>/",
-    #     views.StudentUpdate.as_view(),
-    #     name="student_update",
-    # ),
+    path(
+        "student/update/<int:id>/",
+        views.StudentUpdate.as_view(),
+        name="student_update",
+    ),
     # For Delete
     path(
         "student/delete/<int:id>/",
