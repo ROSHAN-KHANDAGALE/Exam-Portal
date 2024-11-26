@@ -1,0 +1,33 @@
+{% extends "admin/adminBase.html" %} {% load static %} {% block title %}
+<title>Profile View</title>
+{% endblock title %} {% block content %}
+<!-- Main Content -->
+<div class="main-content">
+  <h2 class="text-center mt-4">Profile</h2>
+
+  <form method="post" enctype="multipart/form-data" class="mt-4">
+    {% csrf_token %}
+
+    <!-- Profile Photo Display -->
+    <div class="text-center mb-4">
+      {% if profile.profile_photo %}
+      <img
+        src="{{ profile.profile_photo.url }}"
+        alt="Profile Photo"
+        class="profile-photo img-fluid rounded-circle h-25 w-25"
+      />
+      {% else %}
+      <div class="profile-photo img-fluid rounded-circle h-50 w-50">
+        {{ user.first_name|slice:":1" }}{{ user.last_name|slice:":1" }}
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- First Name Field -->
+    <div class="mb-3">{{ form.as_p }}</div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary w-100">Update Profile</button>
+  </form>
+</div>
+{% endblock content %}

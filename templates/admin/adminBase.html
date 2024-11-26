@@ -46,6 +46,24 @@
         text-align: center;
         padding: 10px 0;
       }
+      .user-initials {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #007bff; /* You can change the background color */
+        color: white;
+        font-size: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+      }
+      .user-profile-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
     </style>
   </head>
   <body>
@@ -94,21 +112,21 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          <img
-            src="https://via.placeholder.com/40"
-            alt=""
-            width="32"
-            height="32"
-            class="rounded-circle me-2"
-          />
+        {% if user.profile_photo %}
+            <img src="{{ user.profile_photo.url }}" alt="User Photo" class="user-profile-img">
+          {% else %}
+            <div class="user-initials">
+              {{ user.first_name|slice:":1" }}{{ user.last_name|slice:":1" }}
+            </div>
+          {% endif %}
           <strong>{{user.first_name}} {{user.last_name}}</strong>
         </a>
         <ul
           class="dropdown-menu dropdown-menu-dark text-small shadow"
           aria-labelledby="dropdownUser1"
         >
-          <li><a class="dropdown-item" href="#">Profile</a></li>
-          <li><a class="dropdown-item" href="#">Settings</a></li>
+          <li><a class="dropdown-item" href={% url 'profile' request.user.pk %}>Profile</a></li>
+          <li><a class="dropdown-item" href={% url 'settings' %}>Settings</a></li>
           <li><hr class="dropdown-divider" /></li>
           {% if user.is_authenticated %}
           <li><a class="dropdown-item" href={% url 'logout' %}>Logout</a></li>

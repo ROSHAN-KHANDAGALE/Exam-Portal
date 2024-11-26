@@ -1,10 +1,16 @@
 from django.shortcuts import render, redirect
 from django.conf import settings
+from django.shortcuts import get_object_or_404
 from django.views import View
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import (
+    ListView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+    DetailView,
+)
 
 # For Model
-from django.contrib.auth.models import User
 from .models import *
 from .forms import *
 
@@ -252,7 +258,7 @@ class TeacherListView(ListView):
     model = Teacher
     form_class = TeacherForm
     template_name = "admin/teacher.html"
-    paginate_by = 5
+
     context_object_name = "teachers"
 
     def get_context_data(self, **kwargs):
@@ -279,7 +285,6 @@ class SubjectListView(ListView):
     model = Subject
     form_class = SubjectForm
     template_name = "admin/subject.html"
-    paginate_by = 2
     context_object_name = "subjects"
 
     def get_context_data(self, **kwargs):
@@ -302,7 +307,7 @@ class ExamListView(ListView):
     model = Exam
     form_class = ExamForm
     template_name = "admin/examForm.html"
-    paginate_by = 5
+
     context_object_name = "exams"
 
     def get_context_data(self, **kwargs):
@@ -325,7 +330,7 @@ class SubjectTeacherListView(ListView):
     model = SubjectTeacher
     form_class = SubjectTeacherForm
     template_name = "admin/SubjectTeacher.html"
-    paginate_by = 5
+
     context_object_name = "subjectTeacher"
 
     def get_context_data(self, **kwargs):
@@ -343,10 +348,69 @@ class EnrollmentListView(ListView):
     model = Enrollment
     form_class = EnrollmentForm
     template_name = "admin/enrollment.html"
-    paginate_by = 5
+
     context_object_name = "enrollment"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] = self.form_class
         return context
+
+
+# For Attendance (CR)
+# For Attendance View
+class AttendanceListView(ListView):
+    model = Attendance
+    form_class = AttendanceForm
+    template_name = "admin/attendance.html"
+
+    context_object_name = "attendance"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = self.form_class
+        return context
+
+
+# For Result (CR)
+# For Result View
+class ResultListView(ListView):
+    model = Result
+    form_class = ResultForm
+    template_name = "admin/results.html"
+    context_object_name = "results"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = self.form_class
+        return context
+
+
+# For Profile (CR)
+# For Profile View
+class ProfileDetailView(DetailView):
+    model = User
+    form_class = UserForm
+    template_name = "admin/profile.html"
+    context_object_name = "profile"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = context["profile"]
+        context["form"] = self.form_class(instance=user)
+        return context
+
+
+# For Profile Update
+class ProfileUpdateView(UpdateView):
+    model = User
+    form_class = UserForm
+    template_name = "admin/profile.html"
+    context_object_name = "profile"
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return redirect("profile", pk=self.object.pk)
+
+    def get_object(self):
+        return self.get_queryset().get(id=self.kwargs["pk"])

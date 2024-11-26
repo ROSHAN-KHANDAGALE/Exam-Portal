@@ -16,26 +16,27 @@ urlpatterns = [
     path("settings/", views.Settings.as_view(), name="settings"),
     # Generic View (CRUD)
     # For Read
+    path("profile/<int:pk>/", views.ProfileDetailView.as_view(), name="profile"),
     path("examForm/", views.ExamListView.as_view(), name="examForm"),
     path("subject/", views.SubjectListView.as_view(), name="subject"),
     path("teacher/", views.TeacherListView.as_view(), name="teacher"),
     path(
         "subjectTeacher/", views.SubjectTeacherListView.as_view(), name="subjectTeacher"
     ),
-    path(
-        "enrollment/", views.EnrollmentListView.as_view(), name="enrollment"
-    ),
-    
+    path("enrollment/", views.EnrollmentListView.as_view(), name="enrollment"),
+    path("results/", views.ResultListView.as_view(), name="results"),
+    path("attendance/", views.AttendanceListView.as_view(), name="attendance"),
     # For Create
     path("examForm/create", views.ExamCreateView.as_view(), name="examForm_post"),
     path("subject/create", views.SubjectCreateView.as_view(), name="subject_post"),
     path("teacher/create", views.TeacherCreateView.as_view(), name="teacher_post"),
     # For Update
-    path(
-        "student/update/<int:id>/",
-        views.StudentUpdate.as_view(),
-        name="student_update",
-    ),
+    path("profile/<int:pk>/update/", views.ProfileUpdateView.as_view(), name="profile_update"),
+    # path(
+    #     "student/update/<int:id>/",
+    #     views.StudentUpdate.as_view(),
+    #     name="student_update",
+    # ),
     # For Delete
     path(
         "student/delete/<int:id>/",

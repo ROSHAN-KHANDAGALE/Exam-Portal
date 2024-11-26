@@ -68,3 +68,56 @@ class EnrollmentForm(forms.ModelForm):
     class Meta:
         model = Enrollment
         fields = "__all__"
+
+
+# For Results Form
+class ResultForm(forms.ModelForm):
+    class Meta:
+        model = Result
+        fields = "__all__"
+
+
+# For Attendance Form
+class AttendanceForm(forms.ModelForm):
+    class Meta:
+        model = Attendance
+        fields = "__all__"
+
+
+# For Profile
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "is_active",
+            "profile_photo",
+            "contact_number",
+        ]
+
+        def __init__(self, *args, **kwargs):
+            super(UserForm, self).__init__(*args, **kwargs)
+
+            # Add custom CSS classes to form fields
+            self.fields["username"].widget.attrs.update(
+                {"class": "form-control", "placeholder": "Username"}
+            )
+            self.fields["first_name"].widget.attrs.update(
+                {"class": "form-control", "placeholder": "First Name"}
+            )
+            self.fields["last_name"].widget.attrs.update(
+                {"class": "form-control", "placeholder": "Last Name"}
+            )
+            self.fields["email"].widget.attrs.update(
+                {"class": "form-control", "placeholder": "Email"}
+            )
+            self.fields["is_active"].widget.attrs.update({"class": "form-check-input"})
+            self.fields["profile_photo"].widget.attrs.update(
+                {"class": "form-control-file"}
+            )
+            self.fields["contact_number"].widget.attrs.update(
+                {"class": "form-control", "placeholder": "Contact Number"}
+            )

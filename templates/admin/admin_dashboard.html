@@ -123,7 +123,7 @@
         <div class="card-body">
           <h5 class="card-title">Attendance</h5>
           <p class="card-text">Pending: {% count_records 'Attendance' %}</p>
-          <a href="#" class="btn btn-light">Manage Attendance</a>
+          <a href={% url 'attendance' %} class="btn btn-light">Manage Attendance</a>
         </div>
       </div>
     </div>
@@ -134,7 +134,7 @@
         <div class="card-body">
           <h5 class="card-title">Results</h5>
           <p class="card-text">Pending: {% count_records 'Result' %}</p>
-          <a href="#" class="btn btn-light">Manage Results</a>
+          <a href={% url 'results' %} class="btn btn-light">Manage Results</a>
         </div>
       </div>
     </div>

@@ -118,12 +118,19 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "<Your-email>"
-EMAIL_HOST_PASSWORD = "<Your-secret>"
+EMAIL_HOST_USER = "<your-email>"
+EMAIL_HOST_PASSWORD = "<your-passkey>"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+# For Image
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+# For Static root
 STATIC_URL = "static/"
 
 STATICFILES_DIRS = (
@@ -133,8 +140,14 @@ STATICFILES_DIRS = (
     ),
 )
 
+
 # For site url
 SITE_URL = "http://localhost:8000/reset"
+
+
+# To override auth.User model
+AUTH_USER_MODEL = "ORM.User"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

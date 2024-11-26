@@ -1,9 +1,17 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 import random, datetime
 
 
 # Create your models here.
+# For User
+class User(AbstractUser):
+    profile_photo = models.FileField(upload_to="media", null=True, blank=True)
+    contact_number = models.CharField(max_length=12, null=True, blank=True)
+    role = models.CharField(max_length=7, null=True, blank=True)
+
+
+# For Reset User
 class ResetID(models.Model):
     UUID = models.UUIDField(unique=True)
     reset_entry = models.DateTimeField()
