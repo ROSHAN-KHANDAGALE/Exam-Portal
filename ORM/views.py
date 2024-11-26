@@ -394,6 +394,7 @@ class ResultListView(ListView):
 
 # For Profile (CR)
 # For Profile View
+# Note: Detail view is used to fetch the specific user details
 class ProfileDetailView(DetailView):
     model = User
     form_class = UserForm
@@ -406,17 +407,14 @@ class ProfileDetailView(DetailView):
         context["form"] = self.form_class(instance=user)
         return context
 
+    def post(self, request, *args, **kwargs):
+        user = self.get_object()
+        form = self.form_class(request.POST, request.FILES, instance=user)
 
-# For Profile Update
-class ProfileUpdateView(UpdateView):
-    model = User
-    form_class = UserForm
-    template_name = "admin/profile.html"
-    context_object_name = "profile"
-
-    def form_valid(self, form):
-        self.object = form.save()
-        return redirect("profile", pk=self.object.pk)
-
-    def get_object(self):
-        return self.get_queryset().get(id=self.kwargs["pk"])
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Update Successful!")
+            return redirect("profile", pk=user.pk)
+        else:
+            messages.error(request, "Something went wrong!")
+            return render(self.get_context_data(form=form))

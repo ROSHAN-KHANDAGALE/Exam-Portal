@@ -98,6 +98,12 @@ class UserForm(forms.ModelForm):
             "contact_number",
         ]
 
+        widgets = {
+            "profile_photo": forms.FileInput(
+                attrs={"type": "file", "accept": "image/*"}
+            ),
+        }
+
         def __init__(self, *args, **kwargs):
             super(UserForm, self).__init__(*args, **kwargs)
 
@@ -116,7 +122,7 @@ class UserForm(forms.ModelForm):
             )
             self.fields["is_active"].widget.attrs.update({"class": "form-check-input"})
             self.fields["profile_photo"].widget.attrs.update(
-                {"class": "form-control-file"}
+                {"class": "form-control-file", "type": "file", "accept": "image/*"}
             )
             self.fields["contact_number"].widget.attrs.update(
                 {"class": "form-control", "placeholder": "Contact Number"}
