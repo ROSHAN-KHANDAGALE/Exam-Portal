@@ -5,6 +5,11 @@
 <div class="main-content">
   <h2 class="text-center mt-4">Create Teacher</h2>
 
+  <!-- Back Button -->
+  <a href="{% url 'home' %}" class="btn btn-secondary mb-4"
+    >Back to Teachers List</a
+  >
+
   <!-- Button to trigger modal (right-aligned with plus icon) -->
   <button
     type="button"
@@ -35,8 +40,8 @@
           ></button>
         </div>
         <div class="modal-body">
-          <!-- Exam Creation Form inside Modal -->
-          <form method="post" action={% url 'teacher_post' %} class="mt-4">
+          <!-- Teacher Creation Form inside Modal -->
+          <form method="post" class="mt-4">
             {% csrf_token %}
             <div class="mb-3">{{ form.as_p }}</div>
             <button type="submit" class="btn btn-primary w-100">
@@ -48,7 +53,7 @@
     </div>
   </div>
 
-  <!-- Exams List -->
+  <!-- Teachers List Table -->
   <h3 class="mt-5">Teachers List</h3>
   <table class="table table-bordered mt-3">
     <thead>
@@ -57,6 +62,7 @@
         <th>Email</th>
         <th>Contact Details</th>
         <th>Specialization</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -66,10 +72,38 @@
         <td>{{ get.email }}</td>
         <td>{{ get.phone_no }}</td>
         <td>{{ get.specialization }}</td>
+        <td>
+          <a href="{% url 'teacher_update' get.pk %}" class="btn btn-warning">
+            Update
+          </a>
+          <a href="{% url 'teacher_delete' get.pk %}" class="btn btn-danger">
+            Delete
+          </a>
+        </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
 
-{% endblock content %}
+<!-- Toast Notifications (using Bootstrap 5) -->
+{% if messages %}
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  {% for message in messages %}
+  <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <i class="bi bi-check-circle-fill me-2"></i>
+      <strong class="me-auto">Notification</strong>
+      <small>Just now</small>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="toast-body">{{ message }}</div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %} {% endblock content %}

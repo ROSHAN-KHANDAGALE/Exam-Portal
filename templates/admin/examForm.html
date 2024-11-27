@@ -1,30 +1,53 @@
-{% extends "admin/adminBase.html" %}
-
-{% block title %}
+{% extends "admin/adminBase.html" %} {% block title %}
 <title>Create Exam</title>
-{% endblock title %}
-
-{% block content %}
+{% endblock title %} {% block content %}
 <!-- Main Content -->
 <div class="main-content">
+  <!-- Back Button -->
+  <div class="d-flex justify-content-start mb-3">
+    <a href="{% url 'home' %}" class="btn btn-light">
+      <i class="fa fa-arrow-left"></i> Back to Exams List
+    </a>
+  </div>
+
   <h2 class="text-center mt-4">Create Exam</h2>
 
-  <button type="button" class="btn btn-success position-fixed top-15 end-0 m-4" data-bs-toggle="modal" data-bs-target="#createExamModal">
+  <!-- Button to trigger modal -->
+  <button
+    type="button"
+    class="btn btn-success position-fixed top-15 end-0 m-4"
+    data-bs-toggle="modal"
+    data-bs-target="#createExamModal"
+  >
     <i class="bi bi-plus-circle"></i> Create Exam
   </button>
 
-  <div class="modal fade" id="createExamModal" tabindex="-1" aria-labelledby="createExamModalLabel" aria-hidden="true">
+  <!-- Modal Structure -->
+  <div
+    class="modal fade"
+    id="createExamModal"
+    tabindex="-1"
+    aria-labelledby="createExamModalLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="createExamModalLabel">Create Exam</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="modal-body">
-          <form method="post" action={% url 'examForm_post' %} class="mt-4">
+          <form method="post" action="{% url 'examForm_post' %}" class="mt-4">
             {% csrf_token %}
             <div class="mb-3">{{ form.as_p }}</div>
-            <button type="submit" class="btn btn-primary w-100">Create Exam</button>
+            <button type="submit" class="btn btn-primary w-100">
+              Create Exam
+            </button>
           </form>
         </div>
       </div>
@@ -58,4 +81,23 @@
     </tbody>
   </table>
 </div>
+
+<!-- Toast Notifications -->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  {% if messages %} {% for message in messages %}
+  <div class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Notification</strong>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="toast-body">{{ message }}</div>
+  </div>
+  {% endfor %} {% endif %}
+</div>
+
 {% endblock content %}

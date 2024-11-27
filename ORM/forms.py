@@ -121,9 +121,6 @@ class UserForm(forms.ModelForm):
                 {"class": "form-control", "placeholder": "Email"}
             )
             self.fields["is_active"].widget.attrs.update({"class": "form-check-input"})
-            self.fields["profile_photo"].widget.attrs.update(
-                {"class": "form-control-file", "type": "file", "accept": "image/*"}
-            )
             self.fields["contact_number"].widget.attrs.update(
                 {"class": "form-control", "placeholder": "Contact Number"}
             )

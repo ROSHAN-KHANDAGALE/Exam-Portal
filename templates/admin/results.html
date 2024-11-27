@@ -1,9 +1,35 @@
 {% extends "admin/adminBase.html" %} {% block title %}
-<title>Incharge Registration</title>
+<title>Result Management</title>
 {% endblock title %} {% block content %}
 <!-- Main Content -->
 <div class="main-content">
-  <h2 class="text-center mt-4">Results</h2>
+  <!-- Back Button -->
+  <div class="d-flex justify-content-start mb-3">
+    <a href="{% url 'home' %}" class="btn btn-light">
+      <i class="fa fa-arrow-left"></i> Back to Dashboard
+    </a>
+  </div>
+
+  <!-- Page Title -->
+  <h2 class="text-center mt-4">Result</h2>
+</div>
+
+<!-- Toast Notifications -->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  {% if messages %} {% for message in messages %}
+  <div class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Notification</strong>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="toast-body">{{ message }}</div>
+  </div>
+  {% endfor %} {% endif %}
 </div>
 
 {% endblock content %}
