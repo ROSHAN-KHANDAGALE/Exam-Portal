@@ -14,26 +14,14 @@
       <img
         src="{{ profile.profile_photo.url }}"
         alt="Profile Photo"
-        class="profile-photo img-fluid rounded-circle"
-        style="width: 100px; height: 100px; object-fit: cover"
+        class="profile-photo img-fluid rounded-circle h-25 w-25"
       />
       {% else %}
-      <div
-        class="profile-photo img-fluid rounded-circle d-inline-flex justify-content-center align-items-center"
-        style="
-          width: 100px;
-          height: 100px;
-          background-color: #007bff;
-          color: white;
-          font-size: 36px;
-        "
-      >
+      <div class="profile-photo img-fluid rounded-circle h-50 w-50">
         {{ user.first_name|slice:":1" }}{{ user.last_name|slice:":1" }}
       </div>
       {% endif %}
     </div>
-
-    <!-- Form Fields -->
     <div class="mb-3">{{ form.as_p }}</div>
     <button type="submit" class="btn btn-primary w-100">Update Profile</button>
   </form>

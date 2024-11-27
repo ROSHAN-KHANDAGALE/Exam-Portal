@@ -2,17 +2,10 @@
 <title>Create Subject</title>
 {% endblock title %} {% block content %}
 <div class="main-content">
-  <!-- Back Button with Home Icon -->
-  <div class="d-flex justify-content-start mb-3">
-    <a href="{% url 'home' %}" class="btn btn-light">
-      <i class="fa fa-home"></i> Back to Home
-    </a>
-  </div>
-
   <h2 class="text-center mt-4">Create Subject</h2>
 
   <!-- Button to trigger modal -->
-  <button
+    <button
     type="button"
     class="btn btn-primary"
     data-bs-toggle="modal"
@@ -43,13 +36,10 @@
           ></button>
         </div>
         <div class="modal-body">
-          <form
-            method="post"
-            action="{% url 'subject_post' %}"
-            id="createSubjectForm"
-            class="mt-4"
-          >
+          <!-- Form inside the modal, rendered when the page loads -->
+          <form method="post" action={% url 'subject_post' %} id="createSubjectForm" class="mt-4">
             {% csrf_token %} {{ form.as_p }}
+            <!-- Render the form fields properly -->
             <button type="submit" class="btn btn-success w-100">
               Create Subject
             </button>
@@ -59,6 +49,7 @@
     </div>
   </div>
 
+  <!-- Subject List -->
   <h3 class="mt-5">Subject List</h3>
   <table class="table table-bordered mt-3">
     <thead>
@@ -76,8 +67,8 @@
         <td>{{ subject.code }}</td>
         <td>{{ subject.credit_hours }}</td>
         <td>
-          <a href="#">
-            <button type="button" class="btn btn-warning">Update</button>
+          <a href="#" >
+            <button type="button">Update</button>
           </a>
         </td>
       </tr>
@@ -88,32 +79,10 @@
   <!-- Pagination -->
   <div class="pagination">
     <span class="step-links">
-      <!-- Add pagination links here if needed -->
+    
     </span>
   </div>
 
-  <!-- Toast Messages -->
-  <div class="toast-container position-fixed top-0 end-0 p-3">
-    {% if messages %} {% for message in messages %}
-    <div
-      class="toast hide"
-      role="alert"
-      aria-live="assertive"
-      aria-atomic="true"
-    >
-      <div class="toast-header">
-        <strong class="me-auto">Notification</strong>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="toast"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="toast-body">{{ message }}</div>
-    </div>
-    {% endfor %} {% endif %}
-  </div>
 </div>
 
 {% endblock content %}

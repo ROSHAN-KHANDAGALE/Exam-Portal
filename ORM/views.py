@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.conf import settings
+from django.shortcuts import get_object_or_404
 from django.views import View
 from django.views.generic import (
     ListView,
@@ -8,7 +9,6 @@ from django.views.generic import (
     DeleteView,
     DetailView,
 )
-from django.urls import reverse_lazy
 
 # For Model
 from .models import *
@@ -255,16 +255,16 @@ class StudentUpdate(View):
 class StudentDelete(View):
     def get(self, request, id):
         Student.objects.get(id=id).delete()
-        messages.success(self.request, "Student removed Successfully!!")
         return redirect("studentRegister")
 
 
-# For Teacher (CRU)
+# For Teacher (CR)
 # For View/ Read
 class TeacherListView(ListView):
     model = Teacher
     form_class = TeacherForm
     template_name = "admin/teacher.html"
+
     context_object_name = "teachers"
 
     def get_context_data(self, **kwargs):
@@ -282,36 +282,7 @@ class TeacherCreateView(CreateView):
     # Custom Redirect
     def form_valid(self, form):
         self.object = form.save()
-        messages.success(self.request, "Teacher Registered Successfully")
         return redirect("teacher")
-
-    def form_invalid(self, form):
-        response = super().form_invalid(form)
-        messages.error(self.request, "Something Went Wrong!!")
-        return response
-
-
-# Udate Teacher
-class TeacherUpdateView(UpdateView):
-    model = Teacher
-    form_class = TeacherForm
-    template_name = "admin/teacher.html"
-
-    def form_valid(self, form):
-        self.object = form.save()
-        messages.error(self.request, "Successfully updated Record!!")
-        return redirect("teacher")
-
-    def form_invalid(self, form):
-        response = super().form_invalid(form)
-        messages.error(self.request, "Something Went Wrong!!")
-        return response
-
-
-class TeacherDeleteView(DeleteView):
-    model = Teacher
-    template_name = "admin/teacher.html"
-    success_url = reverse_lazy("/teacher/")
 
 
 # For Subject (CR)
@@ -334,16 +305,6 @@ class SubjectCreateView(CreateView):
     fields = ["name", "credit_hours"]
     template_name = "admin/subject.html"
     success_url = "/subject/"
-
-    def form_valid(self, form):
-        response = super().form_valid(form)
-        messages.success(self.request, "Subject created successfully!")
-        return response
-
-    def form_invalid(self, form):
-        response = super().form_invalid(form)
-        messages.error(self.request, "Something went wrong!")
-        return response
 
 
 # For Exam (CR)
@@ -368,19 +329,8 @@ class ExamCreateView(CreateView):
     template_name = "admin/examForm.html"
     success_url = "/examForm/"
 
-    def form_valid(self, form):
-        response = super().form_valid(form)
-        self.object = form.save()
-        messages.success(self.request, "Exam Created successfully!")
-        return response
 
-    def form_invalid(self, form):
-        response = super().form_invalid(form)
-        messages.error(self.request, "Something went wrong!")
-        return response
-
-
-# For Subject Teacher (CRU) [DONE]
+# For Subject Teacher (CR)
 # For Subject Teacher View
 class SubjectTeacherListView(ListView):
     model = SubjectTeacher
@@ -396,42 +346,6 @@ class SubjectTeacherListView(ListView):
 
 
 # For Subject Teacher Create
-class SubjectTeacherCreateView(CreateView):
-    model = SubjectTeacher
-    form_class = SubjectTeacherForm
-    success_url = "/subjectTeacher/"
-
-    def form_valid(self, form):
-        response = super().form_valid(form)
-        self.object = form.save()
-        messages.success(self.request, "Incharge Allocated successfully!")
-        return response
-
-    def form_invalid(self, form):
-        response = super().form_invalid(form)
-        messages.error(self.request, "Something went wrong!")
-        return response
-
-
-# For Subject Teacher Update
-class SubjectTeacherUpdateView(UpdateView):
-    model = SubjectTeacher
-    form_class = SubjectTeacherForm
-    template_name = "admin/SubjectTeacher.html"
-
-    def form_valid(self, form):
-        self.object = form.save()
-        messages.error(self.request, "Successfully updated Record!!")
-        return redirect("subjectTeacher")
-
-    def form_invalid(self, form):
-        response = super().form_invalid(form)
-        messages.error(self.request, "Something Went Wrong!!")
-        return response
-
-
-class SubjectTeacherDeleteView(DeleteView):
-    pass
 
 
 # For Enrollment (CR)
@@ -447,23 +361,6 @@ class EnrollmentListView(ListView):
         context = super().get_context_data(**kwargs)
         context["form"] = self.form_class
         return context
-
-
-class EnrollmentCreateView(CreateView):
-    model = Enrollment
-    form_class = EnrollmentForm
-    success_url = "/enrollment/"
-
-    def form_valid(self, form):
-        response = super().form_valid(form)
-        self.object = form.save()
-        messages.success(self.request, "Incharge Allocated successfully!")
-        return response
-
-    def form_invalid(self, form):
-        response = super().form_invalid(form)
-        messages.error(self.request, "Something went wrong!")
-        return response
 
 
 # For Attendance (CR)
@@ -495,7 +392,7 @@ class ResultListView(ListView):
         return context
 
 
-# For Profile (CRU) [DONE]
+# For Profile (CR)
 # For Profile View
 # Note: Detail view is used to fetch the specific user details
 class ProfileDetailView(DetailView):
