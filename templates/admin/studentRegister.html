@@ -3,8 +3,16 @@
 {% endblock title %} {% block content %}
 <!-- Main Content -->
 <div class="main-content">
+  <!-- Back Button -->
+  <div class="d-flex justify-content-start mb-3">
+    <a href="{% url 'home' %}" class="btn btn-light">
+      <i class="fa fa-home"></i> Back to Home
+    </a>
+  </div>
+
   <h2 class="text-center mt-4">Student Registration</h2>
 
+  <!-- Button to trigger modal -->
   <button
     type="button"
     class="btn btn-success position-fixed top-25 end-0 m-4"
@@ -14,7 +22,6 @@
     <i class="bi bi-plus-circle"></i>
     {% if form.instance.id %} Update {% else %} Register Student {% endif %}
   </button>
-
   <!-- Modal Structure -->
   <div
     class="modal fade"
@@ -37,7 +44,6 @@
             aria-label="Close"
           ></button>
         </div>
-
         <div class="modal-body">
           <form
             action="{% if form.instance.id %}{% url 'student_update' form.instance.id %}{% else %}{% url 'studentRegister' %}{% endif %}"
@@ -54,7 +60,6 @@
       </div>
     </div>
   </div>
-
   <!-- Registered Students Table -->
   <h3 class="mt-5 text-center">Registered Students</h3>
   <table class="table table-bordered mt-4 table-dark">
@@ -86,6 +91,24 @@
       {% endfor %}
     </tbody>
   </table>
+</div>
+
+<!-- Toast Message for success/error notifications -->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  {% if messages %} {% for message in messages %}
+  <div class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Notification</strong>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="toast-body">{{ message }}</div>
+  </div>
+  {% endfor %} {% endif %}
 </div>
 
 {% endblock content %}

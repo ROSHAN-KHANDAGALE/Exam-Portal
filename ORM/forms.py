@@ -97,7 +97,6 @@ class UserForm(forms.ModelForm):
             "profile_photo",
             "contact_number",
         ]
-
         widgets = {
             "profile_photo": forms.FileInput(
                 attrs={"type": "file", "accept": "image/*"}
@@ -106,7 +105,6 @@ class UserForm(forms.ModelForm):
 
         def __init__(self, *args, **kwargs):
             super(UserForm, self).__init__(*args, **kwargs)
-
             # Add custom CSS classes to form fields
             self.fields["username"].widget.attrs.update(
                 {"class": "form-control", "placeholder": "Username"}
@@ -121,9 +119,6 @@ class UserForm(forms.ModelForm):
                 {"class": "form-control", "placeholder": "Email"}
             )
             self.fields["is_active"].widget.attrs.update({"class": "form-check-input"})
-            self.fields["profile_photo"].widget.attrs.update(
-                {"class": "form-control-file", "type": "file", "accept": "image/*"}
-            )
             self.fields["contact_number"].widget.attrs.update(
                 {"class": "form-control", "placeholder": "Contact Number"}
             )
