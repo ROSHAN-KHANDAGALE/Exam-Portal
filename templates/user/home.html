@@ -57,7 +57,7 @@
           </a>
         </li>
         <li>
-          <a href="#" class="nav-link">
+          <a href={% url 'user_exam' %} class="nav-link">
             <i class="bi bi-calendar-event"></i> My Exams
           </a>
         </li>
@@ -109,68 +109,8 @@
       </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="main-content">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">My Profile</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Help</a>
-              </li>
-            </ul>
-          </div>
-          <span class="navbar-text"> Welcome, {{ user }}! </span>
-        </div>
-      </nav>
-      <h1 class="mt-4">Dashboard</h1>
-      <p>Welcome to your dashboard. Here you can manage your exams and view results.</p>
-
-      <!-- Add your dashboard content here -->
-      <div class="row">
-        <div class="col-md-4">
-          <div class="card text-white bg-info mb-3">
-            <div class="card-body">
-              <h5 class="card-title">My Upcoming Exams</h5>
-              <p class="card-text">2 exams scheduled</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card text-white bg-warning mb-3">
-            <div class="card-body">
-              <h5 class="card-title">Pending Results</h5>
-              <p class="card-text">1 result awaiting</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card text-white bg-success mb-3">
-            <div class="card-body">
-              <h5 class="card-title">Exams Completed</h5>
-              <p class="card-text">5 exams completed</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    {% block content %}
+    {% endblock content %}
 
     <!-- Footer -->
     <footer>

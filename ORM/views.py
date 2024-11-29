@@ -14,6 +14,10 @@ from django.urls import reverse_lazy
 from .models import *
 from .forms import *
 
+# For searching and pagination
+from django.db.models import Q
+from django.core.paginator import Paginator
+
 # For Authentication, Message
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -184,7 +188,13 @@ class Settings(View):
 class StudentRegister(View):
     def get(self, request):
         form = StudentForm()
-        registered_data = Student.objects.all()
+        query = request.GET.get("q")
+
+        if query:
+            registered_data = Student.objects.filter(name__icontains=query)
+        else:
+            registered_data = Student.objects.all()
+
         return render(
             request,
             "admin/studentRegister.html",
@@ -246,10 +256,22 @@ class TeacherListView(ListView):
     form_class = TeacherForm
     template_name = "admin/teacher.html"
     context_object_name = "teachers"
+    paginate_by = 2
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search_query = self.request.GET.get("q", "")
+
+        if search_query:
+            queryset = queryset.filter(
+                Q(name__icontains=search_query) | Q(email__icontains=search_query)
+            )
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] = self.form_class()
+        context["search_query"] = self.request.GET.get("q", "")
         return context
 
 
@@ -301,10 +323,21 @@ class SubjectListView(ListView):
     form_class = SubjectForm
     template_name = "admin/subject.html"
     context_object_name = "subjects"
+    paginate_by = 2
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search_query = self.request.GET.get("q", "")
+
+        if search_query:
+            queryset = queryset.filter(name__icontains=search_query)
+
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] = self.form_class()
+        context["search_query"] = self.request.GET.get("q", "")
         return context
 
 
@@ -491,8 +524,16 @@ class ProfileDetailView(DetailView):
         form = self.form_class(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
-            messages.success(request, "Update Successful!")
-            return redirect("profile/", pk=user.pk)
+            messages.success(request, "Profile Updated Successful!")
+            return redirect("profile", pk=user.pk)
         else:
             messages.error(request, "Something went wrong!")
             return render(self.get_context_data(form=form))
+
+
+# For User Side
+# For Exam Side
+class ExamShowcaseListView(ListView):
+    model = Exam
+    template_name = "user/exams.html"
+    context_object_name = "examUser"

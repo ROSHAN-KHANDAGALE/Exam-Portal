@@ -62,6 +62,13 @@
   </div>
   <!-- Registered Students Table -->
   <h3 class="mt-5 text-center">Registered Students</h3>
+  <input
+    type="text"
+    name="q"
+    value="{{ search_query }}"
+    placeholder="Search Teachers"
+  />
+  <button type="submit">Search</button>
   <table class="table table-bordered mt-4 table-dark">
     <thead>
       <tr>
@@ -91,6 +98,28 @@
       {% endfor %}
     </tbody>
   </table>
+</div>
+
+<div class="pagination">
+  <span class="step-links">
+    {% if teachers.has_previous %}
+    <a href="?page=1&q={{ search_query }}">First</a>
+    <a href="?page={{ teachers.previous_page_number }}&q={{ search_query }}"
+      >Previous</a
+    >
+    {% endif %}
+    <span class="current">
+      Page {{ teachers.number }} of {{ teachers.paginator.num_pages }}.
+    </span>
+    {% if teachers.has_next %}
+    <a href="?page={{ teachers.next_page_number }}&q={{ search_query }}"
+      >Next</a
+    >
+    <a href="?page={{ teachers.paginator.num_pages }}&q={{ search_query }}"
+      >Last</a
+    >
+    {% endif %}
+  </span>
 </div>
 
 <!-- Toast Message for success/error notifications -->

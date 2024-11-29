@@ -36,4 +36,21 @@
     <button type="submit" class="btn btn-primary w-100">Update Profile</button>
   </form>
 </div>
+
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  {% if messages %} {% for message in messages %}
+  <div class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">Notification</strong>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="toast-body">{{ message }}</div>
+  </div>
+  {% endfor %} {% endif %}
+</div>
 {% endblock content %}

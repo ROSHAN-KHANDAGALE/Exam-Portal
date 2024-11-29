@@ -1,0 +1,23 @@
+{% extends "user/home.html" %} {% block content %}
+<div class="container mt-4">
+  <h1 class="mb-4">Subjects</h1>
+  <div class="row">
+    {% for subject in examUser %}
+    <div class="col-md-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">{{ subject.name }}</h5>
+          <p class="card-text">
+            <strong>Exam name:</strong> {{ subject.name }} <br />
+            <strong>Subject Name:</strong> {{ subject.subject }}
+            <strong>Exam Date:</strong> {{ subject.date }}
+          </p>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p>No subjects available.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

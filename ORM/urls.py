@@ -79,4 +79,8 @@ urlpatterns = [
 
     # For Detail View Profile (C) [DONE]
     path("profile/<int:pk>", views.ProfileDetailView.as_view(), name="profile"),
+
+    # For User Side:
+    # For Exam Show
+    path("schedule/exam/", views.ExamShowcaseListView.as_view(), name="user_exam")
 ]
